@@ -1,0 +1,12 @@
+[package]
+name = "embedded-qr"
+version = "0.1.0"
+edition = "2024"
+description = "A no_std QR code matrix generator for embedded Rust"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/fan2nd/embedded-qr"
+documentation = "https://docs.rs/embedded-qr"
+keywords = ["qr", "qrcode", "embedded", "no-std"]
+
+[dependencies]
