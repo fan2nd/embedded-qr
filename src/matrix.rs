@@ -76,6 +76,17 @@ impl<T: Version> QrMatrix<T> {
             y: 0,
         }
     }
+
+    #[cfg(feature = "embedded-graphics")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "embedded-graphics")))]
+    /// Wraps this matrix in a drawable adapter for `embedded-graphics`.
+    pub fn into_drawable<C>(&self, dark_color: C, light_color: C) -> crate::QrDrawable<'_, T, C>
+    where
+        C: embedded_graphics_core::pixelcolor::PixelColor + Copy,
+    {
+        crate::QrDrawable::new(self, dark_color, light_color)
+    }
+
     fn place_data(modules: &mut MatrixBuf<T>, reserved: &[u8], codewords: &[u8]) {
         let total_bits = codewords.len() * 8;
         let mut bit_index = 0usize;

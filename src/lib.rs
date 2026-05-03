@@ -4,6 +4,9 @@
 mod builder;
 pub mod capacity;
 mod ecc;
+#[cfg(feature = "embedded-graphics")]
+#[cfg_attr(docsrs, doc(cfg(feature = "embedded-graphics")))]
+mod eg;
 mod encoder;
 mod helper;
 mod interleave;
@@ -13,6 +16,9 @@ mod types;
 mod version;
 
 pub use builder::QrBuilder;
+#[cfg(feature = "embedded-graphics")]
+#[cfg_attr(docsrs, doc(cfg(feature = "embedded-graphics")))]
+pub use eg::QrDrawable;
 pub use matrix::{QrMatrix, QrMatrixIter};
 pub use types::{EccLevel, EncodeMode, Mask, QrError};
 pub use version::{

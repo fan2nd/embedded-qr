@@ -1,6 +1,6 @@
 [package]
 name = "embedded-qr"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 description = "A no_std QR code matrix generator for embedded Rust"
 license = "MIT OR Apache-2.0"
@@ -9,4 +9,13 @@ repository = "https://github.com/fan2nd/embedded-qr"
 documentation = "https://docs.rs/embedded-qr"
 keywords = ["qr", "qrcode", "embedded", "no-std"]
 
+[features]
+default = []
+embedded-graphics = ["dep:embedded-graphics-core"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
 [dependencies]
+embedded-graphics-core = { version = "0.4.1", default-features = false, optional = true }

@@ -11,6 +11,7 @@ render however they like.
 - `no_std`
 - no heap allocation
 - typed versions: `Version1` through `Version40`
+- optional `embedded-graphics` integration via `embedded-graphics-core`
 - automatic mode detection: numeric, alphanumeric, or bytes
 - optional manual mode override through `QrBuilder::with_mode`
 - automatic error-correction selection by default
@@ -83,6 +84,37 @@ let info = capacity::info::<Version1>(EccLevel::Q);
 assert_eq!(info.data_codewords, 13);
 assert_eq!(info.ecc_codewords, 13);
 ```
+
+## Embedded Graphics
+
+Enable the optional `embedded-graphics` feature to draw a QR matrix using
+`embedded-graphics-core`:
+
+```toml
+[dependencies]
+embedded-qr = { version = "0.2.0", features = ["embedded-graphics"] }
+```
+
+Then wrap a `QrMatrix<T>` with the drawable adapter:
+
+```rust,ignore
+use embedded_graphics_core::pixelcolor::BinaryColor;
+use embedded_qr::{QrBuilder, Version1};
+
+let qr = QrBuilder::<Version1>::new()
+    .build(b"HELLO WORLD")
+    .unwrap();
+
+let drawable = qr
+    .into_drawable(BinaryColor::On, BinaryColor::Off)
+    .with_module_size(4)
+    .with_border(2);
+
+assert_eq!(drawable.module_size(), 4);
+assert_eq!(drawable.border(), 2);
+```
+
+The default drawable uses `module_size = 1` and `border = 0`.
 
 ## Example
 
